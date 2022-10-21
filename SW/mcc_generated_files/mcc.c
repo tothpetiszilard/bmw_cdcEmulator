@@ -13,12 +13,12 @@
   @Description:
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.76
-        Device            :  PIC16F15325
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.65.2
+        Device            :  PIC16F18324
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 2.00 or later
-        MPLAB             :  MPLAB X 5.10
+        Compiler          :  XC8 1.45 or later
+        MPLAB             :  MPLAB X 4.15
 */
 
 /*
@@ -49,51 +49,50 @@
 
 void SYSTEM_Initialize(void)
 {
+
     PMD_Initialize();
     PIN_MANAGER_Initialize();
     OSCILLATOR_Initialize();
+    WDT_Initialize();
     TMR0_Initialize();
-    EUSART1_Initialize();
-    EUSART2_Initialize();
+    EUSART_Initialize();
 }
 
 void OSCILLATOR_Initialize(void)
 {
-    // NOSC HFINTOSC with 2x PLL; NDIV 1; 
-    OSCCON1 = 0x10;
-    // CSWHOLD may proceed; SOSCPWR Low power; 
+    // NOSC HFINTOSC; NDIV 1; 
+    OSCCON1 = 0x60;
+    // CSWHOLD may proceed; SOSCPWR Low power; SOSCBE crystal oscillator; 
     OSCCON3 = 0x00;
-    // MFOEN disabled; LFOEN disabled; ADOEN disabled; SOSCEN disabled; EXTOEN disabled; HFOEN disabled; 
+    // LFOEN disabled; ADOEN disabled; SOSCEN disabled; EXTOEN disabled; HFOEN disabled; 
     OSCEN = 0x00;
     // HFFRQ 16_MHz; 
-    OSCFRQ = 0x05;
-    // MFOR not ready; 
-    OSCSTAT = 0x00;
+    OSCFRQ = 0x06;
     // HFTUN 0; 
     OSCTUNE = 0x00;
-    // Wait for PLL to stabilize
-    while(PLLR == 0)
-    {
-    }
+}
+
+void WDT_Initialize(void)
+{
+    // WDTPS 1:65536; SWDTEN OFF; 
+    WDTCON = 0x16;
 }
 
 void PMD_Initialize(void)
 {
     // CLKRMD CLKR enabled; SYSCMD SYSCLK enabled; FVRMD FVR enabled; IOCMD IOC enabled; NVMMD NVM enabled; 
     PMD0 = 0x00;
-    // TMR0MD TMR0 enabled; TMR1MD TMR1 enabled; TMR2MD TMR2 enabled; NCOMD DDS(NCO) enabled; 
+    // TMR0MD TMR0 enabled; TMR1MD TMR1 enabled; TMR4MD TMR4 enabled; TMR5MD TMR5 enabled; TMR2MD TMR2 enabled; TMR3MD TMR3 enabled; NCOMD DDS(NCO) enabled; TMR6MD TMR6 enabled; 
     PMD1 = 0x00;
-    // ZCDMD ZCD disabled; CMP1MD CMP1 disabled; ADCMD ADC disabled; CMP2MD CMP2 disabled; DAC1MD DAC1 disabled; 
-    PMD2 = 0x67;
-    // CCP2MD CCP2 disabled; CCP1MD CCP1 disabled; PWM4MD PWM4 disabled; PWM3MD PWM3 disabled; PWM6MD PWM6 disabled; PWM5MD PWM5 disabled; 
-    PMD3 = 0x3F;
-    // CWG1MD CWG1 disabled; UART2MD EUSART2 enabled; MSSP1MD MSSP1 disabled; UART1MD EUSART enabled; 
-    PMD4 = 0x11;
-    // CLC3MD CLC3 disabled; CLC4MD CLC4 disabled; CLC1MD CLC1 disabled; CLC2MD CLC2 disabled; 
-    PMD5 = 0x1E;
+    // DACMD DAC enabled; CMP1MD CMP1 enabled; ADCMD ADC enabled; CMP2MD CMP2 enabled; 
+    PMD2 = 0x00;
+    // CCP2MD CCP2 enabled; CCP1MD CCP1 enabled; CCP4MD CCP4 enabled; CCP3MD CCP3 enabled; PWM6MD PWM6 enabled; PWM5MD PWM5 enabled; CWG2MD CWG2 enabled; CWG1MD CWG1 enabled; 
+    PMD3 = 0x00;
+    // MSSP1MD MSSP1 enabled; UART1MD EUSART enabled; 
+    PMD4 = 0x00;
+    // DSMMD DSM enabled; CLC3MD CLC3 enabled; CLC4MD CLC4 enabled; CLC1MD CLC1 enabled; CLC2MD CLC2 enabled; 
+    PMD5 = 0x00;
 }
-
-
 /**
  End of File
 */

@@ -45,9 +45,6 @@
 #include "BMW_IBUS/IBUS.h"
 #include "SysTick/SysTick.h"
 #include "BMW_CDC/CDC.h"
-#include "MP3/MP3.h"
-#include "Bluetooth/Bluetooth.h"
-#include "NvM/NvM.h"
 /*
                          Main application
  */
@@ -73,20 +70,15 @@ void main(void)
     //INTERRUPT_PeripheralInterruptDisable();
 
     SysTick_Init();
-    while (SysTick_Get() < 100u);
-    IBUS_Init();
-    NvM_Init();
-    CDC_Init();
-    MP3_Init();
     
+    IBUS_Init();
+
+    CDC_Init();    
     while (1)
     {
         // Add your application code
-        Bluetooth_Cyclic();
         IBUS_Cyclic();
         CDC_Cyclic();
-        MP3_Cyclic();
-        
     }
 }
 /**

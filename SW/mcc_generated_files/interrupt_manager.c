@@ -15,12 +15,12 @@
     For individual peripheral handlers please see the peripheral driver for
     all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.76
-        Device            :  PIC16F15325
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.65.2
+        Device            :  PIC16F18324
         Driver Version    :  2.03
     The generated drivers are tested against the following:
-        Compiler          :  XC8 2.00 or later
-        MPLAB 	          :  MPLAB X 5.10
+        Compiler          :  XC8 1.45 or later
+        MPLAB 	          :  MPLAB X 4.15
 */
 
 /*
@@ -58,21 +58,13 @@ void __interrupt() INTERRUPT_InterruptManager (void)
     }
     else if(INTCONbits.PEIE == 1)
     {
-        if(PIE3bits.TX2IE == 1 && PIR3bits.TX2IF == 1)
+        if(PIE1bits.TXIE == 1 && PIR1bits.TXIF == 1)
         {
-            EUSART2_TxDefaultInterruptHandler();
+            EUSART_TxDefaultInterruptHandler();
         } 
-        else if(PIE3bits.RC2IE == 1 && PIR3bits.RC2IF == 1)
+        else if(PIE1bits.RCIE == 1 && PIR1bits.RCIF == 1)
         {
-            EUSART2_RxDefaultInterruptHandler();
-        } 
-        else if(PIE3bits.TX1IE == 1 && PIR3bits.TX1IF == 1)
-        {
-            EUSART1_TxDefaultInterruptHandler();
-        } 
-        else if(PIE3bits.RC1IE == 1 && PIR3bits.RC1IF == 1)
-        {
-            EUSART1_RxDefaultInterruptHandler();
+            EUSART_RxDefaultInterruptHandler();
         } 
         else
         {

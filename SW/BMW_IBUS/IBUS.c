@@ -20,8 +20,8 @@ void IBUS_Init(void)
         txBuffer_au8[tmp_u8] = 0u;
     }
     lastRxTime_u32 = SysTick_Get();
-    IBUS_UART_INIT();
-    IBUS_LIN_ENABLE();
+    EUSART_Initialize();
+    IO_RC2_SetHigh();
 }
 
 void IBUS_Cyclic(void)
@@ -34,7 +34,7 @@ static void IBUS_Receive()
 {
     static uint8_t rxPos_u8 = 0;
     uint8_t data_u8 = 0u;
-    if ((txStatus_en != IBUS_TX_VERIFY) && (0 < IBUS_UART_ISREADY()))
+    if ((txStatus_en != IBUS_TX_VERIFY) && (0 < EUSART_is_rx_ready()))
     {
         
         switch(rxStatus_en)
@@ -43,7 +43,7 @@ static void IBUS_Receive()
                 if ((lastRxTime_u32 + 2) < SysTick_Get())
                 {
                     /* New frame started by anyone else */
-                    data_u8 = IBUS_UART_READ();
+                    data_u8 = EUSART_Read();
                     if (IBUS_RADIOID_U8 == data_u8)
                     {
                         rxBuffer_au8[rxPos_u8++] = data_u8;
@@ -53,14 +53,14 @@ static void IBUS_Receive()
                 else
                 {
                     /* Don't care frame is arriving */
-                    IBUS_UART_READ();
+                    EUSART_Read();
                 }
                 break;
             case IBUS_RX_REC:
             {
                 if ((rxPos_u8 > 1) && (rxPos_u8 >= (1u + rxBuffer_au8[1])))
                 {
-                    rxBuffer_au8[rxPos_u8] = IBUS_UART_READ();
+                    rxBuffer_au8[rxPos_u8] = EUSART_Read();
                     /* Checksum arrived */
                     if (rxBuffer_au8[rxPos_u8] == CalcChecksum(rxBuffer_au8,rxPos_u8))
                     {
@@ -75,7 +75,7 @@ static void IBUS_Receive()
                 }
                 else if (rxPos_u8 == 2)
                 {
-                    data_u8 = IBUS_UART_READ();
+                    data_u8 = EUSART_Read();
                     if (IBUS_MYID_U8 != data_u8)
                     {
                         rxBuffer_au8[rxPos_u8] = data_u8;
@@ -89,12 +89,12 @@ static void IBUS_Receive()
                 }
                 else
                 {
-                    rxBuffer_au8[rxPos_u8++] = IBUS_UART_READ();
+                    rxBuffer_au8[rxPos_u8++] = EUSART_Read();
                 }
                 break;
             }
             default:
-                IBUS_UART_READ();
+                EUSART_Read();
                 break;
         }
         lastRxTime_u32 = SysTick_Get();
@@ -118,7 +118,7 @@ static void IBUS_Transmit()
             if (txPos_u8 < (txBuffer_au8[1u] + 2u))
             {
                 lastSentByte_u8 = txBuffer_au8[txPos_u8];
-                IBUS_UART_WRITE(txBuffer_au8[txPos_u8++]);
+                EUSART_Write(txBuffer_au8[txPos_u8++]);
                 txStatus_en = IBUS_TX_VERIFY;
             }
             else
@@ -130,7 +130,7 @@ static void IBUS_Transmit()
         }
         case IBUS_TX_VERIFY:
         {
-            if (lastSentByte_u8 == IBUS_UART_READ())
+            if (lastSentByte_u8 == EUSART_Read())
             {
                 txStatus_en = IBUS_TX_TRANSMIT;
             }

@@ -18,6 +18,7 @@ extern "C" {
 
 extern void CDC_Init(void);
 extern void CDC_Cyclic(void);
+
 #ifdef	__cplusplus
 }
 #endif

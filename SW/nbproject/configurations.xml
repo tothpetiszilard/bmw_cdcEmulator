@@ -4,14 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <logicalFolder name="Bluetooth" displayName="Bluetooth" projectFiles="true">
-        <itemPath>Bluetooth/Bluetooth.h</itemPath>
-        <itemPath>Bluetooth/Bluetooth_Cfg.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="BMW_CDC" displayName="BMW_CDC" projectFiles="true">
         <itemPath>BMW_CDC/CDC.h</itemPath>
         <itemPath>BMW_CDC/CDC_Cfg.h</itemPath>
-        <itemPath>BMW_CDC/CDC_Mp3_if.h</itemPath>
       </logicalFolder>
       <logicalFolder name="BMW_IBUS" displayName="BMW_IBUS" projectFiles="true">
         <itemPath>BMW_IBUS/IBUS.h</itemPath>
@@ -24,18 +19,8 @@
         <itemPath>mcc_generated_files/pin_manager.h</itemPath>
         <itemPath>mcc_generated_files/mcc.h</itemPath>
         <itemPath>mcc_generated_files/interrupt_manager.h</itemPath>
+        <itemPath>mcc_generated_files/eusart.h</itemPath>
         <itemPath>mcc_generated_files/tmr0.h</itemPath>
-        <itemPath>mcc_generated_files/eusart2.h</itemPath>
-        <itemPath>mcc_generated_files/eusart1.h</itemPath>
-        <itemPath>mcc_generated_files/memory.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="MP3" displayName="MP3" projectFiles="true">
-        <itemPath>MP3/MP3.h</itemPath>
-        <itemPath>MP3/MP3_Cfg.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="NvM" displayName="NvM" projectFiles="true">
-        <itemPath>NvM/NvM.h</itemPath>
-        <itemPath>NvM/NvM_Cfg.h</itemPath>
       </logicalFolder>
       <logicalFolder name="SysTick" displayName="SysTick" projectFiles="true">
         <itemPath>SysTick/SysTick.h</itemPath>
@@ -50,9 +35,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <logicalFolder name="Bluetooth" displayName="Bluetooth" projectFiles="true">
-        <itemPath>Bluetooth/Bluetooth.c</itemPath>
-      </logicalFolder>
       <logicalFolder name="BMW_CDC" displayName="BMW_CDC" projectFiles="true">
         <itemPath>BMW_CDC/CDC.c</itemPath>
       </logicalFolder>
@@ -65,17 +47,9 @@
         <itemPath>mcc_generated_files/device_config.c</itemPath>
         <itemPath>mcc_generated_files/mcc.c</itemPath>
         <itemPath>mcc_generated_files/pin_manager.c</itemPath>
+        <itemPath>mcc_generated_files/eusart.c</itemPath>
         <itemPath>mcc_generated_files/interrupt_manager.c</itemPath>
         <itemPath>mcc_generated_files/tmr0.c</itemPath>
-        <itemPath>mcc_generated_files/eusart2.c</itemPath>
-        <itemPath>mcc_generated_files/eusart1.c</itemPath>
-        <itemPath>mcc_generated_files/memory.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="MP3" displayName="MP3" projectFiles="true">
-        <itemPath>MP3/MP3.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="NvM" displayName="NvM" projectFiles="true">
-        <itemPath>NvM/NvM.c</itemPath>
       </logicalFolder>
       <logicalFolder name="SysTick" displayName="SysTick" projectFiles="true">
         <itemPath>SysTick/SysTick.c</itemPath>
@@ -95,16 +69,14 @@
     <Elem>BMW_IBUS</Elem>
     <Elem>SysTick</Elem>
     <Elem>BMW_CDC</Elem>
-    <Elem>MP3</Elem>
-    <Elem>Bluetooth</Elem>
-    <Elem>NvM</Elem>
+    <Elem>../IBUS_CDEmu_v2.X/MP3</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC16F15325</targetDevice>
+        <targetDevice>PIC16F18324</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -124,7 +96,7 @@
         </archiverTool>
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
-          <parseOnProdLoad>true</parseOnProdLoad>
+          <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
         <subordinates>
@@ -145,7 +117,7 @@
         <property key="default-bitfield-type" value="true"/>
         <property key="default-char-type" value="true"/>
         <property key="define-macros" value=""/>
-        <property key="disable-optimizations" value="true"/>
+        <property key="disable-optimizations" value="false"/>
         <property key="extra-include-directories" value=""/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="garbage-collect-data" value="true"/>
@@ -159,7 +131,7 @@
         <property key="optimization-debug" value="false"/>
         <property key="optimization-invariant-enable" value="false"/>
         <property key="optimization-invariant-value" value="16"/>
-        <property key="optimization-level" value="-O0"/>
+        <property key="optimization-level" value="-O1"/>
         <property key="optimization-speed" value="false"/>
         <property key="optimization-stable-enable" value="false"/>
         <property key="pack-struct" value="true"/>
@@ -209,7 +181,7 @@
         <property key="input-libraries" value="libm"/>
         <property key="keep-generated-startup.as" value="false"/>
         <property key="link-in-c-library" value="true"/>
-        <property key="link-in-c-library-gcc" value="-mc90lib"/>
+        <property key="link-in-c-library-gcc" value=""/>
         <property key="link-in-peripheral-library" value="false"/>
         <property key="managed-stack" value="false"/>
         <property key="opt-xc8-linker-file" value="false"/>
@@ -219,14 +191,13 @@
         <property key="remove-unused-sections" value="true"/>
       </HI-TECH-LINK>
       <PICkit3PlatformTool>
-        <property key="AutoSelectMemRanges" value="manual"/>
+        <property key="AutoSelectMemRanges" value="auto"/>
         <property key="Freeze Peripherals" value="true"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -240,7 +211,7 @@
         <property key="memories.instruction.ram.ranges"
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.ranges" value="0-1fff"/>
+        <property key="memories.programmemory.ranges" value="0-fff"/>
         <property key="poweroptions.powerenable" value="true"/>
         <property key="programmertogo.imagename" value=""/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
@@ -251,15 +222,15 @@
                   value="${programoptions.preservedataflash.ranges}"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveeeprom.ranges" value="f000-f0ff"/>
-        <property key="programoptions.preserveprogram.ranges" value="1fc0-1fe0"/>
+        <property key="programoptions.preserveprogram.ranges" value=""/>
         <property key="programoptions.preserveprogramrange" value="false"/>
         <property key="programoptions.preserveuserid" value="false"/>
         <property key="programoptions.programcalmem" value="false"/>
         <property key="programoptions.programuserotp" value="false"/>
         <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
         <property key="programoptions.usehighvoltageonmclr" value="false"/>
-        <property key="programoptions.uselvpprogramming" value="true"/>
-        <property key="voltagevalue" value="3.375"/>
+        <property key="programoptions.uselvpprogramming" value="false"/>
+        <property key="voltagevalue" value="4.75"/>
       </PICkit3PlatformTool>
       <XC8-config-global>
         <property key="advanced-elf" value="true"/>

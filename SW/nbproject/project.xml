@@ -3,7 +3,6 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>IBUS_CDEmu_v2</name>
             <name>IBUS_CDEmu</name>
             <creation-uuid>e6debc65-2d94-4658-8f3f-60041f335b73</creation-uuid>
             <make-project-type>0</make-project-type>
@@ -18,9 +17,7 @@
                 <sourceRootElem>BMW_IBUS</sourceRootElem>
                 <sourceRootElem>SysTick</sourceRootElem>
                 <sourceRootElem>BMW_CDC</sourceRootElem>
-                <sourceRootElem>MP3</sourceRootElem>
-                <sourceRootElem>Bluetooth</sourceRootElem>
-                <sourceRootElem>NvM</sourceRootElem>
+                <sourceRootElem>../IBUS_CDEmu_v2.X/MP3</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

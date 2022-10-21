@@ -13,12 +13,12 @@
   Description:
     This header file provides implementations for pin APIs for all pins selected in the GUI.
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.76
-        Device            :  PIC16F15325
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.65.2
+        Device            :  PIC16F18324
         Driver Version    :  2.11
     The generated drivers are tested against the following:
-        Compiler          :  XC8 2.00
-        MPLAB             :  MPLAB X 5.10
+        Compiler          :  XC8 1.45
+        MPLAB             :  MPLAB X 4.15
 
     Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
 */
@@ -46,7 +46,9 @@
     SOFTWARE.
 */
 
+#include <xc.h>
 #include "pin_manager.h"
+#include "stdbool.h"
 
 
 
@@ -63,14 +65,14 @@ void PIN_MANAGER_Initialize(void)
     /**
     TRISx registers
     */
-    TRISA = 0x20;
-    TRISC = 0x32;
+    TRISA = 0x27;
+    TRISC = 0x3B;
 
     /**
     ANSELx registers
     */
-    ANSELC = 0x00;
-    ANSELA = 0x00;
+    ANSELC = 0x0B;
+    ANSELA = 0x27;
 
     /**
     WPUx registers
@@ -97,10 +99,8 @@ void PIN_MANAGER_Initialize(void)
    
     
 	
-    RC0PPS = 0x11;   //RC0->EUSART2:TX2;    
-    RA4PPS = 0x0F;   //RA4->EUSART1:TX1;    
-    RX2DTPPS = 0x11;   //RC1->EUSART2:RX2;    
-    RX1DTPPS = 0x15;   //RC5->EUSART1:RX1;    
+    RXPPS = 0x15;   //RC5->EUSART:RX;    
+    RA4PPS = 0x14;   //RA4->EUSART:TX;    
 }
   
 void PIN_MANAGER_IOC(void)
