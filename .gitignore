@@ -56,7 +56,6 @@ CompilerLog.txt
 Makefile
 dist/
 build/
-nbproject/
 
 #Backup files
 *.bak
