@@ -57,3 +57,6 @@ Makefile
 dist/
 build/
 nbproject/
+
+#Backup files
+*.bak
