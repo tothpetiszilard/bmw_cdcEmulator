@@ -1,6 +1,6 @@
 BMW (E46 and E39) CDC (cd changer) emulator project
 
-- Emulates a CD changes node on the IBUS network
+- Emulates a CD changer node on the IBUS network
 - Controls and reads status of KRC 86B V4.0 bluetooth module (onboard)
 - Controls a dfPlayer mini USB and microSD card music player module (onboard)
 - Receives multifuction steering wheel commands
