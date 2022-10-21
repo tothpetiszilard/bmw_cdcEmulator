@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+#Build files
+CompilerLog.txt
+Makefile
+dist/
+build/
+nbproject/
